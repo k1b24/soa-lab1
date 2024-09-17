@@ -4,30 +4,30 @@ info:
   version: 1.0.0
   description: Простое API для взаимодействия с коллекцией музыкальных групп
 servers:
-  - url: 'https://localhost:8080/api/v1/'
+  - url: 'https://localhost:8080/api/v1'
 
 paths:
-  /bands:
+  /space-marines:
     post:
-      summary: Создание новой группы
+      summary: Создание нового десантника (призыв)
       tags:
-        - Bands
-      operationId: createBand
+        - SpaceMarines
+      operationId: createSpaceMarine
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Band"
+              $ref: "#/components/schemas/SpaceMarine"
       responses:
         '200':
-          description: Успешный ответ с данными о созданной группе
+          description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Band"
+                $ref: "#/components/schemas/SpaceMarine"
         '400':
-          description: Ошибка. Данные введены некорректно
+          description: Bad request
           content:
             application/json:
               schema:
@@ -39,7 +39,7 @@ paths:
                     example: 400
                   message:
                     type: string
-                    example: ['Координата y не может быть меньше -439']
+                    example: ['Координата х не может быть больше 683']
         default:
           description: Дефолтная ошибка
           content:
@@ -47,22 +47,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/DefaultError'
     get:
-      summary: Получение всех групп
+      summary: Получение всех десантников (отмечаем в военкомате)
       tags:
-        - Bands
-      operationId: getBands
+        - SpaceMarines
+      operationId: getSpaceMarine
       parameters:
-        - name: page
+        - name: limit
           in: query
-          description: Номер страницы (начиная с 1)
+          description: Количество элементов в выдаче
           required: false
           schema:
             type: integer
             minimum: 1
-            example: 1
-        - name: size
+            example: 10
+        - name: offset
           in: query
-          description: Размер страницы (количество элементов на одной странице)
+          description: Сдвиг по элементам от начала
           required: false
           schema:
             type: integer
@@ -78,8 +78,9 @@ paths:
               - id
               - name
               - creationDate
-              - numberOfParticipants
-              - genre
+              - health
+              - height
+              - category
             example: name
         - name: sortDirection
           in: query
@@ -87,149 +88,68 @@ paths:
           required: false
           schema:
             type: string
+            default: ASC
             enum:
               - ASC
               - DESC
             example: ASC
-        - name: id
+        - name: minId
           in: query
-          description: Идентификатор группы
+          description: Минимальный айди десантника
           required: false
           schema:
             type: integer
             minimum: 1
-            example: 1
-        - name: id.gt
-          in: query
-          description: Идентификатор группы должен быть больше...
-          required: false
-          schema:
-            type: integer
             example: 25
-        - name: id.gte
+        - name: maxId
           in: query
-          description: Идентификатор группы должен быть больше или равен...
+          description: Максимальный айди десантника
           required: false
           schema:
+            minimum: 1
             type: integer
-            example: 24
-        - name: id.lt
-          in: query
-          description: Идентификатор группы должен быть меньше...
-          required: false
-          schema:
-            type: integer
-            example: 13
-        - name: id.lte
-          in: query
-          description: Идентификатор группы должен быть меньше или равен...
-          required: false
-          schema:
-            type: integer
-            example: 12
+            example: 50
         - name: name
           in: query
-          description: Имя группы
+          description: Имя десантника
           required: false
           schema:
             type: string
             minLength: 1
-            example: ZOLOTO
-        - name: coordinate.x
+            example: Серж
+        - name: minX
           in: query
-          description: Координата х
+          description: Минимальная координата х
           required: false
           schema:
             type: number
-            format: int64
-            example: 1
-        - name: coordinate.x.gt
+            format: float
+            example: -1337.3
+        - name: maxX
           in: query
-          description: Координата х должна быть больше...
+          description: Максимальная координата х
           required: false
           schema:
             type: number
-            format: int64
-            example: 45
-        - name: coordinate.x.gte
+            format: float
+            example: 1337.3
+        - name: minY
           in: query
-          description: Координата х должна быть больше или равна...
-          required: false
-          schema:
-            type: number
-            format: int64
-            example: 44
-        - name: coordinate.x.lt
-          in: query
-          description: Координата х должна быть меньше...
-          required: false
-          schema:
-            type: number
-            format: int64
-            example: 23
-        - name: coordinate.x.lte
-          in: query
-          description: Координата х должна быть меньше или равна...
-          required: false
-          schema:
-            type: number
-            format: int64
-            example: 22
-        - name: coordinate.y
-          in: query
-          description: Координата y
+          description: Минимальная координата y
           required: false
           schema:
             type: number
             format: double
-            minimum: -439
-            example: 1
-        - name: coordinate.y.gt
+            example: -1337.3
+        - name: maxY
           in: query
-          description: Координата y должна быть больше...
+          description: Максимальная координата y
           required: false
           schema:
             type: number
             format: double
-            minimum: -439
-            example: 52
-        - name: coordinate.y.gte
-          in: query
-          description: Координата y должна быть больше или равна...
-          required: false
-          schema:
-            type: number
-            format: double
-            minimum: -439
-            example: 82
-        - name: coordinate.y.lt
-          in: query
-          description: Координата y должна быть меньше...
-          required: false
-          schema:
-            type: number
-            format: double
-            minimum: -439
-            example: 66
-        - name: coordinate.y.lte
-          in: query
-          description: Координата y должна быть меньше или равна...
-          required: false
-          schema:
-            type: number
-            format: double
-            minimum: -439
-            example: 43
-        - name: creationDate
-          in: query
-          description: Дата создания
-          required: false
-          schema:
-            type: string
-            format: date-time
-            nullable: false
-            example: 2024-09-13T11:00:01.637Z
-        - name: creationDate.gt
+            example: 1337.3
+        - name: minCreationDate
           in: query
           description: Дата создания должна быть позже...
           required: false
@@ -238,7 +158,7 @@ paths:
             format: date-time
             nullable: false
             example: 2007-07-13T11:00:01.637Z
-        - name: creationDate.gte
+        - name: maxCreationDate
           in: query
           description: Дата создания должна быть позже или равна...
           required: false
@@ -247,92 +167,76 @@ paths:
             format: date-time
             nullable: false
             example: 2024-09-30T11:00:01.637Z
-        - name: creationDate.lt
+        - &minHealth
+          name: minHealth
           in: query
-          description: Дата создания должна быть раньше...
+          description: Минимальное здоровье
           required: false
           schema:
-            type: string
-            format: date-time
-            nullable: false
-            example: 2024-09-12T11:00:01.637Z
-        - name: creationDate.lte
+            type: number
+            format: float
+            minimum: 0
+            example: 1337.3
+        - name: maxHealth
           in: query
-          description: Дата создания должна быть раньше или равна...
+          description: Максимальное здоровье
           required: false
           schema:
-            type: string
-            format: date-time
-            nullable: false
-            example: 2024-08-13T11:00:01.637Z
-        - name: numberOfParticipants
+            type: number
+            format: float
+            minimum: 0
+            example: 1337.3
+        - name: loyal
           in: query
-          description: Количество участников
+          description: Верный императору (че)
           required: false
           schema:
-            type: integer
-            minimum: 1
-            example: 1
-        - name: numberOfParticipants.gt
+            type: boolean
+        - name: minHeight
           in: query
-          description: Количество участников должно быть больше...
+          description: Минимальный рост
           required: false
           schema:
-            type: integer
-            minimum: 1
-            example: 1
-        - name: numberOfParticipants.gte
+            type: number
+            format: double
+            example: 1337.3
+        - name: maxHeight
           in: query
-          description: Количество участников должно быть больше или равно...
+          description: Максимальный рост
           required: false
           schema:
-            type: integer
-            minimum: 1
-            example: 1
-        - name: numberOfParticipants.lt
+            type: number
+            format: double
+            example: 1337.3
+        - name: category
           in: query
-          description: Количество участников должно быть меньше...
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            example: 1
-        - name: numberOfParticipants.lte
-          in: query
-          description: Количество участников должно быть меньше или равно...
-          required: false
-          schema:
-            type: integer
-            minimum: 1
-            example: 1
-        - name: description
-          in: query
-          description: Описание группы
-          required: false
-          schema:
-            type: string
-            minLength: 1
-            example: Мы лучшая группа в мире
-        - name: genre
-          in: query
-          description: Жанр группы
+          description: Масть
           required: false
           schema:
             type: string
             enum:
-              - ROCK
-              - SOUL
-              - MATH_ROCK
-              - POST_ROCK
-            example: SOUL
-        - name: person.name
+              - DREADNOUGHT
+              - INCEPTOR
+              - SUPPRESSOR
+              - TERMINATOR
+              - LIBRARIAN
+            example: SUPPRESSOR
+        - name: chapterName
           in: query
-          description: Имя солиста
+          description: Часть
           required: false
           schema:
             type: string
             minLength: 1
-            example: Владимир
+            example: third
+        - name: chapterWorld
+          in: query
+          description: Мир
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            example: outworld
       responses:
         '200':
           description: Успешный ответ с массивом групп
@@ -348,15 +252,12 @@ paths:
                   total:
                     type: integer
                     description: Общее количество элементов
-                  totalPages:
+                  limit:
                     type: integer
-                    description: Общее количество страниц
-                  currentPage:
+                    description: Количество элементов
+                  offset:
                     type: integer
-                    description: Текущий номер страницы
-                  size:
-                    type: integer
-                    description: Размер страницы
+                    description: Сдвиг по элементам
         '400':
           description: Ошибка. Неправильные параметры фильтрации или сортировки
           content:
@@ -397,6 +298,42 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Band"
+        default:
+          description: Дефолтная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultError'
+    put:
+      summary: Обновление десантника (мобилизация)
+      tags:
+        - SpaceMarines
+      operationId: updateSpaceMarine
+      parameters:
+        - *space-marine-id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SpaceMarine"
+      responses:
+        '204':
+          description: Updated
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 400
+                  message:
+                    type: string
+                    example: [ 'Координата х не может быть больше 683' ]
         default:
           description: Дефолтная ошибка
           content:
@@ -525,10 +462,11 @@ paths:
           schema:
             type: string
             enum:
-              - ROCK
-              - SOUL
-              - MATH_ROCK
-              - POST_ROCK
+              - DREADNOUGHT
+              - INCEPTOR
+              - SUPPRESSOR
+              - TERMINATOR
+              - LIBRARIAN
       responses:
         '204':
           description: Успешный ответ
@@ -609,7 +547,6 @@ components:
           items:
             $ref: '#/components/schemas/Single'
       required:
-        - id
         - name
         - coordinates
         - creationDate

@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Starships Service
+  version: 1.0.0
+  description: API для взаимодействия с коллекцией кораблей
+servers:
+  - url: 'https://localhost:8080/api/v1/starship'
+
+paths:
+  /create/{starship-id}/{starship-name}:
+    post:
+      summary: Создание нового корабля
+      tags:
+        - Starship
+      operationId: createStarship
+      parameters:
+        - &starshipId
+          in: path
+          name: starship-id
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Идентификатор корабля
+      responses:
+        '204':
+          description: OK
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 400
+                  message:
+                    type: string
+                    example: [ 'Incorrect id format' ]
+        default:
+          description: Дефолтная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultError'
+  /{starship-id}/load/{space-marine-id}:
+    post:
+      summary: погрузить десантника на корабль (мобилизация)
+      tags:
+        - Starship
+      operationId: loadSpaceMarineIntoStarship
+      parameters:
+        - *starshipId
+        - name: space-marine-id
+          in: path
+          description: Идентификатор десантника
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: OK
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 400
+                  message:
+                    type: string
+                    example: [ 'Incorrect id format' ]
+        default:
+          description: Дефолтная ошибка
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultError'
+
+components:
+  schemas:
+    DefaultError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 404
+        message:
+          type: string
+          example: Ресурс не найден
