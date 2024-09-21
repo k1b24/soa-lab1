@@ -39,6 +39,10 @@ paths:
                   message:
                     type: string
                     example: [ 'Incorrect id format' ]
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -79,6 +83,10 @@ paths:
                     example: [ 'Incorrect id format' ]
         '404':
           description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:

@@ -40,6 +40,10 @@ paths:
                   message:
                     type: string
                     example: ['Координата х не может быть больше 683']
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -276,6 +280,10 @@ paths:
                   message:
                     type: string
                     example: Неправильные параметры
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -305,6 +313,10 @@ paths:
                 $ref: "#/components/schemas/SpaceMarine"
         '404':
           description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -343,6 +355,10 @@ paths:
                     example: [ 'Координата х не может быть больше 683' ]
         '404':
           description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -368,6 +384,10 @@ paths:
             application/json: {}
         '404':
           description: Not found
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -402,6 +422,10 @@ paths:
             application/json: {}
         '400':
           description: Bad request
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -423,6 +447,10 @@ paths:
                 $ref: '#/components/schemas/SpaceMarine'
         '204':
           description: No content
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
@@ -448,6 +476,10 @@ paths:
                   $ref: "#/components/schemas/SpaceMarine"
         '204':
           description: No content
+        '500':
+          description: Internal server error
+        '503':
+          description: Service unavailable
         default:
           description: Дефолтная ошибка
           content:
