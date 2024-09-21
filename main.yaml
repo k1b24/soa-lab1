@@ -549,7 +549,7 @@ components:
         code:
           type: integer
           format: int32
-          example: 404
+          example: 418
         message:
           type: string
-          example: Ресурс не найден
+          example: Ты чайник
