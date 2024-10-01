@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.7.20'
+    id 'org.jetbrains.kotlin.plugin.noarg' version '1.7.20'
+    id 'war'
+}
+
+group 'ru.itmo'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.1'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+[compileKotlin, compileTestKotlin].forEach {
+    it.kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+allOpen {
+    annotation('jakarta.ws.rs.Path')
+    annotation('jakarta.enterprise.context.ApplicationScoped')
+    annotation('jakarta.persistence.Entity')
+    annotation('jakarta.persistence.Embeddable')
+    annotation('jakarta.persistence.MappedSuperclass')
+}
+
+noArg {
+    annotation('jakarta.persistence.Entity')
+    annotation('jakarta.persistence.Embeddable')
+    annotation('jakarta.persistence.MappedSuperclass')
+}
+
+dependencies {
+    compileOnly('jakarta.enterprise:jakarta.enterprise.cdi-api:3.0.0')
+    compileOnly('jakarta.ejb:jakarta.ejb-api:4.0.0')
+    compileOnly('jakarta.ws.rs:jakarta.ws.rs-api:3.0.0')
+    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+    implementation('org.hibernate:hibernate-core:6.0.2.Final')
+    implementation('org.glassfish.jaxb:jaxb-runtime:3.0.2')
+    implementation('org.hibernate.validator:hibernate-validator:7.0.4.Final')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
