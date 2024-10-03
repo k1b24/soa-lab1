@@ -161,18 +161,18 @@ paths:
           required: false
           schema:
             type: string
-            format: date-time
+            format: date
             nullable: false
-            example: 2007-07-13T11:00:01.637Z
+            example: 2007-07-13
         - name: maxCreationDate
           in: query
           description: Дата создания должна быть позже или равна...
           required: false
           schema:
             type: string
-            format: date-time
+            format: date
             nullable: false
-            example: 2024-09-30T11:00:01.637Z
+            example: 2024-09-30
         - &minHealth
           name: minHealth
           in: query
@@ -473,7 +473,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/SpaceMarine"
+                  $ref: "#/components/schemas/AmountResponse"
         '204':
           description: No content
         '500':
@@ -574,6 +574,15 @@ components:
       required:
         - name
         - world
+
+    AmountResponse:
+      type: object
+      nullable: false
+      properties:
+        amount:
+          type: integer
+          format: int64
+          nullable: false
 
     DefaultError:
       type: object
