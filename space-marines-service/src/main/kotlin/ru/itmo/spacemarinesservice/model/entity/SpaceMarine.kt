@@ -26,6 +26,9 @@ data class SpaceMarine(
     val category: AstartesCategory?,
     @Embedded
     val chapter: Chapter,
+    @ManyToOne
+    @JoinColumn(name = "starship_id")
+    var starship: Starship?,
 ) {
     @Embeddable
     data class Coordinates(

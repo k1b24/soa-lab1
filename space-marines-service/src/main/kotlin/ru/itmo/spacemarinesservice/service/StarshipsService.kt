@@ -3,6 +3,7 @@ package ru.itmo.spacemarinesservice.service
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import ru.itmo.spacemarinesservice.model.entity.Starship
+import ru.itmo.spacemarinesservice.repository.SpaceMarinesRepository
 import ru.itmo.spacemarinesservice.repository.StarshipsRepository
 import java.util.UUID
 
@@ -11,6 +12,9 @@ class StarshipsService {
 
     @Inject
     private lateinit var starshipsRepository: StarshipsRepository
+
+    @Inject
+    private lateinit var spaceMarinesRepository: SpaceMarinesRepository
 
     fun saveStarship(
         starshipId: UUID,
@@ -21,5 +25,9 @@ class StarshipsService {
             name = starshipName,
         )
         starshipsRepository.saveStarship(starship)
+    }
+
+    fun loadSpaceMarine(starshipId: UUID, spaceMarineId: Long) {
+        spaceMarinesRepository.addToStarship(spaceMarineId, starshipId)
     }
 }

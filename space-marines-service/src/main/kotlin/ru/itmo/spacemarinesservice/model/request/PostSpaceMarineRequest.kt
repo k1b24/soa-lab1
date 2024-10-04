@@ -56,6 +56,7 @@ data class PostSpaceMarineRequest(
         loyal = loyal,
         height = height,
         category = category,
-        chapter = SpaceMarine.Chapter(chapter.name, chapter.world)
+        chapter = SpaceMarine.Chapter(chapter.name, chapter.world),
+        starship = null,
     )
 }

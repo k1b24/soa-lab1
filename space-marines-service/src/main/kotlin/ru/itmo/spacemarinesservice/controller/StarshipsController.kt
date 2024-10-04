@@ -40,4 +40,18 @@ class StarshipsController {
             return buildErrorResponseByException(e)
         }
     }
+
+    @POST
+    @Path("/{starship-id}/load/{space-marine-id}")
+    fun loadSpaceMarine(
+        @PathParam("starship-id") starshipId: UUID,
+        @PathParam("space-marine-id") spaceMarineId: Long,
+    ): Response {
+        try {
+            starshipsService.loadSpaceMarine(starshipId, spaceMarineId)
+            return Response.status(Response.Status.NO_CONTENT).build()
+        } catch (e: Exception) {
+            return buildErrorResponseByException(e)
+        }
+    }
 }

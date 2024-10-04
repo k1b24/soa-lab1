@@ -194,6 +194,33 @@ class SpaceMarinesRepository {
         }
     }
 
+    fun addToStarship(spaceMarineId: Long, starshipId: UUID) {
+        val session: Session = databaseSessionManager.getSession()
+        try {
+            session.beginTransaction()
+
+            session.createNativeMutationQuery("UPDATE spacemarines SET starship_id = :starshipId WHERE id = :id")
+                .setParameter("id", spaceMarineId)
+                .setParameter("starshipId", starshipId)
+                .executeUpdate()
+
+            session.transaction.commit()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            if (session.transaction.isActive) {
+                session.transaction.rollback()
+            }
+            throw DatabaseInteractionException(
+                message = "An error occurred while setting starship_id = $starshipId to SpaceMarine with id = $spaceMarineId",
+                cause = e,
+            )
+        } finally {
+            if (session.isOpen) {
+                databaseSessionManager.closeSession(session)
+            }
+        }
+    }
+
     private fun constructWhereClose(queryParams: QueryParams): String {
         var where = "1 = 1"
 
