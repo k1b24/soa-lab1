@@ -17,6 +17,7 @@ import ru.itmo.spacemarinesservice.model.response.AmountResponse
 import ru.itmo.spacemarinesservice.model.response.ErrorResponse
 import ru.itmo.spacemarinesservice.model.response.SpaceMarinesResponse
 import ru.itmo.spacemarinesservice.service.SpaceMarinesService
+import ru.itmo.spacemarinesservice.util.buildErrorResponseByException
 import java.io.InputStream
 import java.time.LocalDate
 
@@ -318,14 +319,4 @@ class SpaceMarinesController {
         else
             Response.status(Response.Status.NO_CONTENT).build()
     }
-
-    private fun buildErrorResponseByException(e: Exception): Response = Response
-        .status(Response.Status.INTERNAL_SERVER_ERROR)
-        .entity(
-            ErrorResponse(
-                code = Response.Status.INTERNAL_SERVER_ERROR.statusCode,
-                message = e.message ?: "",
-            )
-        )
-        .build()
 }

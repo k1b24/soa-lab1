@@ -6,7 +6,6 @@ plugins {
 }
 
 group 'ru.itmo'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -47,4 +46,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.register('deploy') {
+    dependsOn('war')
+    doLast {
+        exec {
+            executable("java")
+            args("-jar", "-Djava.net.preferIPv4Stack=true", "payara-micro.jar", "--deploy", "${buildDir}/libs/starships-service.war", "--port", "8081")
+        }
+    }
 }

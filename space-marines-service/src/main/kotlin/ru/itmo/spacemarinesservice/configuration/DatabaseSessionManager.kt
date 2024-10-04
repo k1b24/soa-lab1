@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.Configuration
 import ru.itmo.spacemarinesservice.model.entity.SpaceMarine
+import ru.itmo.spacemarinesservice.model.entity.Starship
 
 @ApplicationScoped
 class DatabaseSessionManager {
@@ -17,6 +18,7 @@ class DatabaseSessionManager {
             Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(SpaceMarine::class.java)
+                .addAnnotatedClass(Starship::class.java)
         StandardServiceRegistryBuilder()
             .applySettings(configuration.properties).build()
         configuration.buildSessionFactory()

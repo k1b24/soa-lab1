@@ -1,12 +1,9 @@
 package ru.itmo.spacemarinesservice.model.entity
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
-import java.time.Instant
 import java.time.LocalDate
-import java.util.Date
 
 @Entity
 @Table(name = "spacemarines")
