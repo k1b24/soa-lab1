@@ -194,17 +194,16 @@ class SpaceMarinesRepository {
         }
     }
 
-    fun addToStarship(spaceMarineId: Long, starshipId: UUID) {
+    fun addToStarship(spaceMarineId: Long, starshipId: UUID): Int {
         val session: Session = databaseSessionManager.getSession()
         try {
             session.beginTransaction()
 
-            session.createNativeMutationQuery("UPDATE spacemarines SET starship_id = :starshipId WHERE id = :id")
+            return session.createNativeMutationQuery("UPDATE spacemarines SET starship_id = :starshipId WHERE id = :id")
                 .setParameter("id", spaceMarineId)
                 .setParameter("starshipId", starshipId)
                 .executeUpdate()
 
-            session.transaction.commit()
         } catch (e: Exception) {
             e.printStackTrace()
             if (session.transaction.isActive) {

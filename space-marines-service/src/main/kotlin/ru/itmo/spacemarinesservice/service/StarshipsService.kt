@@ -27,7 +27,6 @@ class StarshipsService {
         starshipsRepository.saveStarship(starship)
     }
 
-    fun loadSpaceMarine(starshipId: UUID, spaceMarineId: Long) {
+    fun loadSpaceMarine(starshipId: UUID, spaceMarineId: Long): Int =
         spaceMarinesRepository.addToStarship(spaceMarineId, starshipId)
-    }
 }

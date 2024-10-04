@@ -44,12 +44,33 @@ class StarshipsController {
     @POST
     @Path("/{starship-id}/load/{space-marine-id}")
     fun loadSpaceMarine(
-        @PathParam("starship-id") starshipId: UUID,
+        @PathParam("starship-id") starshipId: String,
         @PathParam("space-marine-id") spaceMarineId: Long,
     ): Response {
         try {
-            starshipsService.loadSpaceMarine(starshipId, spaceMarineId)
+            val amount = starshipsService.loadSpaceMarine(UUID.fromString(starshipId), spaceMarineId)
+            if (amount == 0) {
+                return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(
+                        ErrorResponse(
+                            code = Response.Status.NOT_FOUND.statusCode,
+                            message = "Spacemarine with id = $spaceMarineId or Starship with id = $starshipId not found",
+                        )
+                    )
+                    .build()
+            }
             return Response.status(Response.Status.NO_CONTENT).build()
+        } catch (e: IllegalArgumentException) {
+            return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(
+                    ErrorResponse(
+                        code = Response.Status.BAD_REQUEST.statusCode,
+                        message = "Bad value of starshipId = $starshipId",
+                    )
+                )
+                .build()
         } catch (e: Exception) {
             return buildErrorResponseByException(e)
         }
