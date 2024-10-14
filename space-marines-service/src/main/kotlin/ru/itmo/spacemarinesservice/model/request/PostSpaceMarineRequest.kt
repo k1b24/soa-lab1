@@ -49,7 +49,8 @@ data class PostSpaceMarineRequest(
         var world: String?,
     )
 
-    fun toSpaceMarineEntity(): SpaceMarine = SpaceMarine(
+    fun toSpaceMarineEntity(id: Long = 0): SpaceMarine = SpaceMarine(
+        id = id,
         name = name,
         coordinates = SpaceMarine.Coordinates(coordinates.x, coordinates.y.toDouble()),
         health = health.toFloat(),

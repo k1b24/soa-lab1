@@ -215,6 +215,51 @@ class SpaceMarinesController {
         }
     }
 
+    @PUT
+    @Path("/{space-marine-id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    fun putSpaceMarine(
+        @PathParam("space-marine-id") spaceMarineId: Long,
+        spaceMarinEntityInputStream: InputStream,
+    ): Response {
+        val postSpaceMarineRequest: PostSpaceMarineRequest
+
+        try {
+            postSpaceMarineRequest = objectMapper.readValue(spaceMarinEntityInputStream.readAllBytes(), PostSpaceMarineRequest::class.java)
+        } catch (e: MismatchedInputException) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity(
+                    ErrorResponse(
+                        code = Response.Status.BAD_REQUEST.statusCode,
+                        message = "missing: ${e.path.map { it.fieldName }}",
+                    )
+                )
+                .build()
+        }
+
+        val constraints = validator.validate(postSpaceMarineRequest)
+            .plus(validator.validate(postSpaceMarineRequest.chapter))
+            .plus(validator.validate(postSpaceMarineRequest.coordinates))
+        if (constraints.isNotEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                .entity(
+                    ErrorResponse(
+                        code = Response.Status.BAD_REQUEST.statusCode,
+                        message = "${constraints.map { "${it.propertyPath} = ${it.message}" }}",
+                    )
+                )
+                .build()
+        }
+
+        try {
+            val spaceMarine = spaceMarinesService.updateSpaceMarine(spaceMarineId, postSpaceMarineRequest)
+            return Response.status(Response.Status.NO_CONTENT).build()
+        } catch (e: Exception) {
+            return buildErrorResponseByException(e)
+        }
+    }
+
     @DELETE
     @Path("/{space-marine-id}")
     @Produces(MediaType.APPLICATION_JSON)

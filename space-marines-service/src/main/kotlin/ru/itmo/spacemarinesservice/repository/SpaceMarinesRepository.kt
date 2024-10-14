@@ -8,6 +8,7 @@ import ru.itmo.spacemarinesservice.exception.DatabaseInteractionException
 import ru.itmo.spacemarinesservice.model.entity.AstartesCategory
 import ru.itmo.spacemarinesservice.model.entity.QueryParams
 import ru.itmo.spacemarinesservice.model.entity.SpaceMarine
+import ru.itmo.spacemarinesservice.model.request.PostSpaceMarineRequest
 import java.util.*
 
 
@@ -81,6 +82,30 @@ class SpaceMarinesRepository {
             }
             throw DatabaseInteractionException(
                 message = "An error occurred while retrieving SpaceMarine entity with id = $spaceMarineId",
+                cause = e,
+            )
+        } finally {
+            if (session.isOpen) {
+                databaseSessionManager.closeSession(session)
+            }
+        }
+    }
+
+    fun updateSpaceMarine(spaceMarine: SpaceMarine) {
+        val session: Session = databaseSessionManager.getSession()
+        try {
+            session.beginTransaction()
+
+            session.merge(spaceMarine)
+
+            session.transaction.commit()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            if (session.transaction.isActive) {
+                session.transaction.rollback()
+            }
+            throw DatabaseInteractionException(
+                message = "An error occurred while updating SpaceMarine entity with id = ${spaceMarine.id}",
                 cause = e,
             )
         } finally {
@@ -301,14 +326,13 @@ class SpaceMarinesRepository {
             sort = " ORDER BY"
             queryParams.sortBy!!.forEachIndexed { i, elem ->
                 sort += " y.${elem.fieldName}"
+                if (queryParams.sortDirection != null) {
+                    sort += " ${queryParams.sortDirection!!.name.lowercase(Locale.getDefault())}"
+                }
                 if (i != queryParams.sortBy!!.size - 1) {
                     sort += ","
                 }
             }
-        }
-
-        if (queryParams.sortBy != null && queryParams.sortDirection != null) {
-            sort += " ${queryParams.sortDirection!!.name.lowercase(Locale.getDefault())}"
         }
 
         return sort

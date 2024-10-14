@@ -30,6 +30,13 @@ class SpaceMarinesService {
         spaceMarineId: Long
     ): SpaceMarine? = spaceMarinesRepository.getSpaceMarine(spaceMarineId)
 
+    fun updateSpaceMarine(spaceMarineId: Long, postSpaceMarineRequest: PostSpaceMarineRequest) {
+        spaceMarinesRepository.updateSpaceMarine(
+            postSpaceMarineRequest.toSpaceMarineEntity(id = spaceMarineId),
+        )
+    }
+
+
     fun deleteSpaceMarineById(
         spaceMarineId: Long,
     ): Int = spaceMarinesRepository.deleteSpaceMarineById(spaceMarineId)

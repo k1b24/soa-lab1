@@ -471,9 +471,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/AmountResponse"
+                $ref: "#/components/schemas/AmountResponse"
         '204':
           description: No content
         '500':
