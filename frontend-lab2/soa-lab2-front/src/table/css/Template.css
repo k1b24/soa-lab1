@@ -1,0 +1,42 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    margin: 0 2px;
+    color: #333;
+}
+
+.pagination a.active {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+#page1 .row {
+    display: table-row;
+}
+
+#page2 .row {
+    display: none;
+}
