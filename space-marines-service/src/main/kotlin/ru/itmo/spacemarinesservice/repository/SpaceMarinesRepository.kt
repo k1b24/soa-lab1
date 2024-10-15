@@ -46,9 +46,12 @@ class SpaceMarinesRepository {
             session.beginTransaction()
 
             return session.createQuery(
-                "SELECT y FROM SpaceMarine y WHERE ${constructWhereClose(queryParams)} ${constructSortClause(queryParams)} ${constructPaging(queryParams)}",
+                "SELECT y FROM SpaceMarine y ${constructWhereClose(queryParams)} ${constructSortClause(queryParams)}",
                 SpaceMarine::class.java,
-            ).resultList
+            )
+                .setFirstResult(queryParams.offset ?: 0)
+                .setMaxResults(queryParams.limit ?: Int.MAX_VALUE)
+                .resultList
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -246,7 +249,7 @@ class SpaceMarinesRepository {
     }
 
     private fun constructWhereClose(queryParams: QueryParams): String {
-        var where = "1 = 1"
+        var where = "WHERE 1 = 1"
 
         if (queryParams.minId != null) {
             where += " and y.id >= ${queryParams.minId}"
