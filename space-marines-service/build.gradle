@@ -70,7 +70,7 @@ tasks.register('deploy') {
     doLast {
         exec {
             executable("java")
-            args("-jar", "-Djava.net.preferIPv4Stack=true", "payara-micro.jar", "--deploy", "${buildDir}/libs/space-marines-service.war")
+            args("-jar", "-Djava.net.preferIPv4Stack=true", "-Djavax.net.ssl.keyStore=../keystore.jks", "-Djavax.net.ssl.keyStorePassword=123456", "-Dpayaramicro.sslPort=8433", "payara-micro.jar", "--deploy", "${buildDir}/libs/space-marines-service.war", "--sslCert", "soa-lab-keystore")
         }
     }
 }
