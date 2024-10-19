@@ -1,7 +1,7 @@
 const alertBadRequest = (response, alertWithMessage) => {
     response.json()
         .then(resp => {
-                let msg = response.status + ": " + resp["description"]
+                let msg = response.status + ": " + resp["message"]
                 alertWithMessage(msg)
                 console.log("error", msg);
             }

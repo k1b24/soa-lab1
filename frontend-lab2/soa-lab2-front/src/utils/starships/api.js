@@ -1,6 +1,6 @@
 import makeFetch from "../makeFetch";
 
-const BASE_STARSHIP_SERVICE_URL = "https://localhost:8081/starships-service/starship"
+const BASE_STARSHIP_SERVICE_URL = "https://localhost:22002/starships-service/starships"
 
 export const fetchAdd = async (data, alertWithMessage) => {
     if (data !== null) {

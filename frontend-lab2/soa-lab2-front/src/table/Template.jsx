@@ -12,28 +12,43 @@ import GetLoyalist from "./GetLoyalist";
 import GetCountOfHealthyMarines from "./GetCountOfHealthyMarines";
 import AddStarship from "./AddStarship";
 import LoadOnStarship from "./LoadOnStarship";
+import Filters from "./Filters";
 
 const Template = ({alertWithMessage}) => {
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
-    const [sortBy, setSortBy] = useState({fields: ["id"], order: "asc"})
-    const [filters, setFilters] = useState("")
-    const [flats, setFlats] = useState([])
+    const [sortBy, setSortBy] = useState({fields: ["id"], order: "ASC"})
+    const [filters, setFilters] = useState({
+        minId: null,
+        maxId: null,
+        minX: null,
+        maxX: null,
+        minY: null,
+        maxY: null,
+        minHealth: null,
+        maxHealth: null,
+        minHeight: null,
+        maxHeight: null,
+        minCreationDate: null,
+        maxCreationDate: null
+    })
+    const [marines, setMarines] = useState([])
 
     const updateContent = () => {
-        fetchGetMarines(setFlats, setOffset, sortBy, limit, filters, alertWithMessage);
+        console.log("Filters: " + filters)
+        fetchGetMarines(setMarines, setOffset, sortBy, limit, offset, filters, alertWithMessage);
     }
 
     useEffect(() => {
         updateContent()
-    }, [limit, sortBy]);
+    }, [limit, offset, sortBy]);
 
     const onSortClick = (field) => {
         if (sortBy.fields.includes(field)) {
             setSortBy({fields: sortBy.fields.filter(function (f) { return f === field}), order: sortBy.order})
         } else {
-            setSortBy({fields: [field], order: "asc"})
+            setSortBy({fields: [field], order: "ASC"})
         }
     }
 
@@ -63,28 +78,13 @@ const Template = ({alertWithMessage}) => {
                         }
                     </tr>
                     </thead>
-                    <TableContent content={flats}/>
+                    <TableContent content={marines}/>
                 </table>
             </div>
-            <Pagination currentPage={limit} setCurrentPage={setLimit} pagesNumber={offset}/>
+            <Pagination limit={limit} offset={offset} setOffset={setOffset}/>
 
-            <FindById flats={flats} setFlats={setFlats} updateContent={updateContent} alertWithMessage={alertWithMessage}/>
-
-            <details className="dropdown">
-                <summary className="m-1 btn">Filters</summary>
-                <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-                    <li>
-                        <div>
-                            <div>
-                                <textarea placeholder={"filters"} value={filters}
-                                          onChange={e => setFilters(e.target.value)}/>
-                            </div>
-                            <button className={"btn btn-outline btn-success"} onClick={updateContent}>Use filters
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-            </details>
+            <FindById marines={marines} setMarines={setMarines} updateContent={updateContent} alertWithMessage={alertWithMessage}/>
+            <Filters setFilters={setFilters} updateContent={updateContent} />
             <DeleteById updateContent={updateContent} alertWithMessage={alertWithMessage}/>
             <AddMarine updateContent={updateContent} alertWithMessage={alertWithMessage}/>
             <UpdateMarine updateContent={updateContent} alertWithMessage={alertWithMessage}/>

@@ -1,11 +1,11 @@
-const Pagination = ({currentPage, setCurrentPage, pagesNumber}) => {
+const Pagination = ({limit, offset, setOffset}) => {
 
     const onNextBackButtonClick = (isNext) => {
-        if (isNext && currentPage < (pagesNumber - 1)) {
-            setCurrentPage(currentPage + 1)
+        if (isNext) {
+            setOffset(offset + limit)
         }
-        if (!isNext && currentPage > 0) {
-            setCurrentPage(currentPage - 1)
+        if (!isNext && offset > 0) {
+            setOffset(offset - limit)
         }
     }
 

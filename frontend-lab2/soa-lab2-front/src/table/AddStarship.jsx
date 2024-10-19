@@ -19,7 +19,7 @@ const AddStarship = ({alertWithMessage}) => {
             <li>
                 <div>
                     <div>
-                        <label htmlFor="idArea">name</label>
+                        <label htmlFor="idArea">id</label>
                         <textarea id={"idArea"} value={id} onChange={e => setId(e.target.value)} placeholder={"id"}/>
                         <label htmlFor="nameArea">name</label>
                         <textarea id={"nameArea"} value={name} onChange={e => setName(e.target.value)} placeholder={"name"}/>

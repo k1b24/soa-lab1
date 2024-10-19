@@ -1,12 +1,12 @@
 import {useState} from "react";
-import {fetchFlatById} from "../utils/flats/api";
+import {fetchMarineById} from "../utils/space-marines/api";
 
-const FindById = ({flats, setFlats, updateContent, alertWithMessage}) => {
+const FindById = ({marines, setMarines, updateContent, alertWithMessage}) => {
 
     const [value, setValue] = useState("")
 
     const onFindClick = () => {
-        fetchFlatById(value, setFlats, alertWithMessage)
+        fetchMarineById(value, setMarines, alertWithMessage)
     }
 
     const onResetClick = () => {

@@ -4,33 +4,24 @@ import {fetchAdd} from "../utils/space-marines/api";
 const AddMarine = ({updateContent, alertWithMessage}) => {
 
     // const [id, setId] = useState("")
-    const [name, setName] = useState("")
-    const [coordinates, setCoordinates] = useState({x: "", y: ""})
+    const [name, setName] = useState("myaso")
+    const [coordinates, setCoordinates] = useState({x: 1, y: 1})
     const [health, setHealth] = useState(1)
     const [loyal, setLoyal] = useState(false)
-    const [height, setHeight] = useState("")
-    const [category, setCategory] = useState("")
-    const [chapter, setChapter] = useState({name: "", world: ""})
+    const [height, setHeight] = useState(52)
+    const [category, setCategory] = useState("DREADNOUGHT")
+    const [chapter, setChapter] = useState({name: "chipi", world: "chapa"})
 
     const onCreateButtonClick = () => {
-        console.log(
-            name,
-            coordinates,
-            health,
-            loyal,
-            height,
-            category,
-            chapter
-        )
-        // fetchAdd({
-        //     name: name,
-        //     coordinates: coordinates,
-        //     health: health,
-        //     loyal: loyal,
-        //     height: height,
-        //     category: category,
-        //     chapter: chapter,
-        // }, alertWithMessage).then(() => updateContent())
+        fetchAdd({
+            name: name,
+            coordinates: coordinates,
+            health: health,
+            loyal: loyal,
+            height: height,
+            category: category,
+            chapter: chapter,
+        }, alertWithMessage).then(() => updateContent())
     }
 
     return <details className="dropdown">
@@ -42,18 +33,18 @@ const AddMarine = ({updateContent, alertWithMessage}) => {
                         <label htmlFor="nameArea">name</label>
                         <textarea id={"nameArea"} value={name} onChange={e => setName(e.target.value)} placeholder={"name"}/>
                         <label htmlFor="xArea">coordinates.x</label>
-                        <textarea id={"xArea"} value={coordinates.x} onChange={e => setCoordinates({x: e.target.value, y: coordinates.y})}
-                                  placeholder={"coordinates.x"}/>
+                        <input type="number" id={"xArea"} value={coordinates.x} onChange={e => setCoordinates({x: e.target.value, y: coordinates.y})}
+                               placeholder={"coordinates.x"}/>
                         <label htmlFor="yArea">coordinates.y</label>
-                        <textarea id={"yArea"} value={coordinates.y} onChange={e => setCoordinates({x: coordinates.x, y: e.target.value})}
-                                  placeholder={"coordinates.y"}/>
+                        <input type="number" id={"yArea"} value={coordinates.y} onChange={e => setCoordinates({x: coordinates.x, y: e.target.value})}
+                               placeholder={"coordinates.y"}/>
                         <label htmlFor="healthArea">health</label>
-                        <textarea id={"healthArea"} value={health} onChange={e => setHealth(e.target.value)} placeholder={"area"}/>
-                        <label htmlFor="loyalArea">loyal </label>
-                        <input type="checkbox" id={"loyalArea"} value={loyal} onChange={e => setLoyal(e.target.checked)} />
+                        <input type="number" id={"healthArea"} value={health} onChange={e => setHealth(e.target.value)} placeholder={"area"}/>
+                        <label htmlFor="loyalArea">loyal </label><br/>
+                        <input type="checkbox" id={"loyalArea"} value={loyal} onChange={e => setLoyal(e.target.checked)} /><br/>
                         <label htmlFor="heightArea">height</label>
-                        <textarea id={"heightArea"} value={height} onChange={e => setHeight(e.target.value)} placeholder={"height"}/>
-                        <label htmlFor="categoryArea">Id</label>
+                        <input type="number" id={"heightArea"} value={height} onChange={e => setHeight(e.target.value)} placeholder={"height"}/>
+                        <label htmlFor="categoryArea">category</label>
                         <select className='select' onChange={(e) => setCategory(e.target.value)} value={category} required>
                             {['DREADNOUGHT', 'INCEPTOR', 'SUPPRESSOR', 'TERMINATOR', 'LIBRARIAN'].map((enumCategory) => {
                                 return (
