@@ -53,7 +53,8 @@ tasks.register('deploy') {
     doLast {
         exec {
             executable("java")
-            args("-jar", "-Djava.net.preferIPv4Stack=true", "payara-micro.jar", "--deploy", "${buildDir}/libs/starships-service.war", "--port", "8081")
+            args("-jar", "-Djava.net.preferIPv4Stack=true", "-Djavax.net.ssl.keyStore=../keystore.jks", "-Djavax.net.ssl.keyStorePassword=123456", "-Dpayaramicro.sslPort=1282", "payara-micro.jar", "--deploy", "${buildDir}/libs/starships-service.war", "--port", "8081", "--sslCert", "soa-lab-keystore")
+            // java -jar -Xmx512m -Xms256m -Djava.net.preferIPv4Stack=true -Djavax.net.ssl.keyStore=keystore.jks -Djavax.net.ssl.keyStorePassword=123456 -Djavax.net.ssl.trustStore=truststore -Djavax.net.ssl.trustStorePassword=123456 -Dpayaramicro.sslPort=22002 payara-micro.jar --deploy starships-service.war --sslCert soa-lab-keystore --port 46576 --noHazelcast
         }
     }
 }

@@ -17,7 +17,7 @@ class StarshipsController {
         @PathParam("starship-id") starshipId: UUID,
         @PathParam("starship-name") starshipName: String,
     ): Response {
-        val client = ClientBuilder.newClient()
+        val client = ClientBuilder.newBuilder().hostnameVerifier { hostname, session -> true }.build()
         return client
             .target("$SPACE_MARINES_SERVICE_URL/starships/create/$starshipId/$starshipName")
             .request()
@@ -30,7 +30,7 @@ class StarshipsController {
         @PathParam("starship-id") starshipId: UUID,
         @PathParam("space-marine-id") spaceMarineId: Long,
     ): Response {
-        val client = ClientBuilder.newClient()
+        val client = ClientBuilder.newBuilder().hostnameVerifier { hostname, session -> true }.build()
         return client
             .target("$SPACE_MARINES_SERVICE_URL/starships/$starshipId/load/$spaceMarineId")
             .request()
@@ -38,6 +38,6 @@ class StarshipsController {
     }
 
     companion object {
-        private const val SPACE_MARINES_SERVICE_URL = "http://localhost:8080/space-marines-service"
+        private const val SPACE_MARINES_SERVICE_URL = "https://localhost:22001/space-marines-service"
     }
 }
