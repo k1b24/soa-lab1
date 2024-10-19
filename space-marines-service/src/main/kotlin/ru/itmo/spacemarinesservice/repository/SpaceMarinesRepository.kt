@@ -76,7 +76,7 @@ class SpaceMarinesRepository {
 
             return session.createQuery("SELECT y FROM SpaceMarine y WHERE y.id = :id", SpaceMarine::class.java)
                 .setParameter("id", spaceMarineId)
-                .singleResult
+                .singleResultOrNull
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -178,7 +178,7 @@ class SpaceMarinesRepository {
             return session
                 .createQuery("SELECT y FROM SpaceMarine y WHERE loyal = true", SpaceMarine::class.java)
                 .setMaxResults(1)
-                .singleResult
+                .singleResultOrNull
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -204,7 +204,7 @@ class SpaceMarinesRepository {
             return session
                 .createQuery("SELECT COUNT(y) FROM SpaceMarine y WHERE y.health >= :minHealth", Long::class.java)
                 .setParameter("minHealth", minHealth)
-                .singleResult
+                .singleResultOrNull
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -312,11 +312,11 @@ class SpaceMarinesRepository {
         }
 
         if (queryParams.chapterName != null) {
-            where += " and y.chapter.chapterName LIKE '${queryParams.chapterName}'"
+            where += " and y.chapter.name LIKE '${queryParams.chapterName}'"
         }
 
         if (queryParams.chapterWorld != null) {
-            where += " and y.chapter.chapterWorld LIKE '${queryParams.chapterWorld}'"
+            where += " and y.chapter.world LIKE '${queryParams.chapterWorld}'"
         }
 
         return where
