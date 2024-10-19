@@ -7,7 +7,6 @@ import jakarta.ws.rs.ext.Provider
 
 @Provider
 class CorsFilter : ContainerResponseFilter {
-
     override fun filter(requestContext: ContainerRequestContext, responseContext: ContainerResponseContext) {
         responseContext.headers.add("Access-Control-Allow-Origin", "*")
         responseContext.headers.add("Access-Control-Allow-Headers", "Content-Type, Origin, X-Requested-With")

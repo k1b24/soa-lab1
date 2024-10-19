@@ -306,7 +306,7 @@ class SpaceMarinesController {
             .entity(
                 ErrorResponse(
                     code = Response.Status.NOT_FOUND.statusCode,
-                    message = "No space marines with category $category was not found",
+                    message = "Space marines with category $category was not found",
                 )
             )
             .build()
@@ -359,9 +359,6 @@ class SpaceMarinesController {
         } catch (e: Exception) {
             return buildErrorResponseByException(e)
         }
-        return if (amount != 0L)
-            Response.ok().entity(AmountResponse(amount)).build()
-        else
-            Response.status(Response.Status.NO_CONTENT).build()
+        return Response.ok().entity(AmountResponse(amount)).build()
     }
 }

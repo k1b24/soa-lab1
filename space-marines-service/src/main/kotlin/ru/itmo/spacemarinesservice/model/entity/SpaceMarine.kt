@@ -39,8 +39,8 @@ data class SpaceMarine(
     @Embeddable
     data class Chapter(
         @Column(name = "chapter_name")
-        val chapterName: String,
+        val name: String,
         @Column(name = "chapter_world")
-        val chapterWorld: String?,
+        val world: String?,
     )
 }
