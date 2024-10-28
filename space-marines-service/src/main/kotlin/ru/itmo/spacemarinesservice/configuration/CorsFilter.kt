@@ -9,11 +9,12 @@ import jakarta.ws.rs.ext.Provider
 class CorsFilter : ContainerResponseFilter {
 
     override fun filter(requestContext: ContainerRequestContext, responseContext: ContainerResponseContext) {
+        responseContext.headers.remove("Last-modified")
         if (!responseContext.headers.containsKey("Access-Control-Allow-Origin")) {
             responseContext.headers.add("Access-Control-Allow-Origin", "*")
         }
         if (!responseContext.headers.containsKey("Access-Control-Allow-Headers")) {
-            responseContext.headers.add("Access-Control-Allow-Headers", "Content-Type, Origin, X-Requested-With")
+            responseContext.headers.add("Access-Control-Allow-Headers", "*")
         }
         if (!responseContext.headers.containsKey("Access-Control-Allow-Methods")) {
             responseContext.headers.add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, HEAD, OPTIONS")

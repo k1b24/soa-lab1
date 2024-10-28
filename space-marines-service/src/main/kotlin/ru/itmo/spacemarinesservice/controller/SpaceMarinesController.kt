@@ -2,6 +2,7 @@ package ru.itmo.spacemarinesservice.controller
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import jakarta.annotation.security.PermitAll
 import jakarta.inject.Inject
 import jakarta.validation.Validation
 import jakarta.ws.rs.*
