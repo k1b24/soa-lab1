@@ -17,7 +17,6 @@ const LoadOnStarship = ({alertWithMessage}) => {
     return <details className="dropdown">
         <summary className="m-1 btn">Load marine on starship</summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
                 <div>
                     <div>
                         <label htmlFor="starshipIdArea">starshipId</label>
@@ -27,7 +26,6 @@ const LoadOnStarship = ({alertWithMessage}) => {
                     </div>
                     <button className={"btn btn-outline btn-success"} onClick={onCreateButtonClick}>Load</button>
                 </div>
-            </li>
         </ul>
     </details>
 }

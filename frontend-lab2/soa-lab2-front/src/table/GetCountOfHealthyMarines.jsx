@@ -12,7 +12,6 @@ const GetCountOfHealthyMarines = ({alertWithMessage}) => {
     return <details className="dropdown">
         <summary className="m-1 btn">Get count of healthy marines</summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
                 <div>
                     <div>
                         <label htmlFor="healthArea">minHealth</label>
@@ -20,7 +19,6 @@ const GetCountOfHealthyMarines = ({alertWithMessage}) => {
                     </div>
                     <button className={"btn btn-outline btn-success"} onClick={onButtonClick}>Get count of healthy marines</button>
                 </div>
-            </li>
         </ul>
     </details>
 }

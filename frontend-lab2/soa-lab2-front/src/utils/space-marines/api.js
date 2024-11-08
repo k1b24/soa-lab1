@@ -4,6 +4,7 @@ const BASE_SPACE_MARINE_SERVICE_URL = "https://localhost:22001/space-marines-ser
 
 export const fetchGetMarines = async (setMarines, setOffset, sortBy, limit, offset, filters, alertWithMessage) => {
     const url = new URL(BASE_SPACE_MARINE_SERVICE_URL + "/space-marines");
+    console.log(filters.minId)
     let params = {
         limit: limit,
         offset: offset,
@@ -21,10 +22,10 @@ export const fetchGetMarines = async (setMarines, setOffset, sortBy, limit, offs
         minCreationDate: filters.minCreationDate,
         maxCreationDate: filters.maxCreationDate
     }
-    // if (filter !== "") {
-    //     params = {limit: null, offset: null, sortBy: null, filters: null}
-    //     params.filters = filter
-    // }
+//     if (filters !== "") {
+//         params = {limit: null, offset: null, sortBy: null, filters: null}
+//         params.filters = filters
+//     }
 
     // if (sortBy.order === "desc") {
     //     params.page = currentPage
@@ -48,11 +49,13 @@ export const fetchGetMarines = async (setMarines, setOffset, sortBy, limit, offs
             searchParams.delete(key);
         });
         url.search = searchParams.toString()
+        console.log(searchParams.toString())
         await makeFetch(
             url,
-            json => {
-            setMarines(json["data"])
-        }, alertWithMessage)
+            () => {},
+            json => {setMarines(json["data"])},
+            alertWithMessage,
+        )
     } catch (e) {
         console.log("error", e);
     }

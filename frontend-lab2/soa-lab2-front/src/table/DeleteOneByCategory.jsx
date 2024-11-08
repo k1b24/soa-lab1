@@ -13,7 +13,6 @@ const DeleteOneByCategory = ({updateContent, alertWithMessage}) => {
     return <details className="dropdown">
         <summary className="m-1 btn">Delete one by category</summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
                 <div>
                     <h1>Delete one by category</h1>
                     <div>
@@ -29,7 +28,6 @@ const DeleteOneByCategory = ({updateContent, alertWithMessage}) => {
                     <button className="btn btn-outline btn-warning" onClick={onButtonClick}>Delete one by category
                     </button>
                 </div>
-            </li>
         </ul>
     </details>
 }

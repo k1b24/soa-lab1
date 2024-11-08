@@ -17,6 +17,7 @@ const Filters = ({setFilters, updateContent}) => {
     const [maxCreationDate, setMaxCreationDate] = useState(null)
 
     const onFilterClick = () => {
+        console.log(minId)
         setFilters({
             minId: minId,
             maxId: maxId,
@@ -67,7 +68,6 @@ const Filters = ({setFilters, updateContent}) => {
     return <details className="dropdown">
         <summary className="m-1 btn">Filters</summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
                 <div>
                     <div>
                         <label htmlFor="minIdArea">minId</label>
@@ -98,7 +98,6 @@ const Filters = ({setFilters, updateContent}) => {
                     <button className={"btn btn-outline btn-success"} onClick={onFilterClick}>Filter</button>
                     <button className="btn btn-outline btn-warning" onClick={onResetClick}>Reset</button>
                 </div>
-            </li>
         </ul>
     </details>
 }

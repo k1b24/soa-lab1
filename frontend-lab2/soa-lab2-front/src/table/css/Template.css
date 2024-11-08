@@ -3,14 +3,67 @@ table {
     width: 100%;
 }
 
+.table-container {
+    padding: 1%;
+}
+
 th, td {
-    border: 1px solid black;
+    border: 1px solid white;
+    color: white;
     padding: 8px;
     text-align: center;
+    font-weight: 600;
+    font-size: auto;
+}
+
+textarea {
+    padding: 5%;
+}
+
+input {
+    padding: 5%
+}
+
+.buttons-container {
+    margin-top: 1%;
+    text-align: center;
+}
+
+.join {
+    padding-top: 1%;
+}
+
+.spacemarineImg {
+    float: left;
+    width: 50%;
+}
+
+.underTableContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+.alertContainer {
+    float: right;
+    width: 50%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.alert {
+    margin: 0%;
+}
+
+.okButton {
+    border: 2px;
 }
 
 th {
     background-color: #f2f2f2;
+    font-weight: 800;
+    font-size: 150%;
+    color: black;
     cursor: pointer;
 }
 

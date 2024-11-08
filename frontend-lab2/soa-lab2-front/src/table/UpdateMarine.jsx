@@ -29,7 +29,6 @@ const UpdateMarine = ({updateContent, alertWithMessage}) => {
     return <details className="dropdown">
         <summary className="m-1 btn">Update marine</summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li>
                 <div>
                     <div>
                         <label htmlFor="idArea">id</label>
@@ -69,7 +68,6 @@ const UpdateMarine = ({updateContent, alertWithMessage}) => {
                     </div>
                     <button className={"btn btn-outline btn-success"} onClick={onUpdateButtonClick}>Update</button>
                 </div>
-            </li>
         </ul>
     </details>
 }
