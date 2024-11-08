@@ -15,7 +15,7 @@ const GetCountOfHealthyMarines = ({alertWithMessage}) => {
                 <div>
                     <div>
                         <label htmlFor="healthArea">minHealth</label>
-                        <textarea id={"healthArea"} value={minHealth} onChange={e => setMinHealth(e.target.value)} placeholder={"minHealth"}/>
+                        <input type="number" id={"healthArea"} value={minHealth} onChange={e => setMinHealth(e.target.value)} placeholder={"minHealth"}/>
                     </div>
                     <button className={"btn btn-outline btn-success"} onClick={onButtonClick}>Get count of healthy marines</button>
                 </div>

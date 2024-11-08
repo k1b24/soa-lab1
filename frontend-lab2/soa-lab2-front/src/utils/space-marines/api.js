@@ -2,46 +2,39 @@ import makeFetch from "../makeFetch";
 
 const BASE_SPACE_MARINE_SERVICE_URL = "https://localhost:22001/space-marines-service"
 
-export const fetchGetMarines = async (setMarines, setOffset, sortBy, limit, offset, filters, alertWithMessage) => {
+export const fetchGetMarines = async (setMarines, setOffset, sortBy, order, limit, offset, filters, alertWithMessage) => {
     const url = new URL(BASE_SPACE_MARINE_SERVICE_URL + "/space-marines");
     console.log(filters.minId)
+    console.log(order)
     let params = {
         limit: limit,
         offset: offset,
-        sortDirection: sortBy.order,
+        sortDirection: order,
         minId: filters.minId,
         maxId: filters.maxId,
+        name: filters.name,
         minX: filters.minX,
         maxX: filters.maxX,
         minY: filters.minY,
         maxY: filters.maxY,
         minHealth: filters.minHealth,
         maxHealth: filters.maxHealth,
+        loyal: filters.loyal,
         minHeight: filters.minHeight,
         maxHeight: filters.maxHeight,
+        category: filters.category,
         minCreationDate: filters.minCreationDate,
-        maxCreationDate: filters.maxCreationDate
+        maxCreationDate: filters.maxCreationDate,
+        chapterName: filters.chapterName,
+        chapterWorld: filters.chapterWorld,
+        sortBy: sortBy,
     }
-//     if (filters !== "") {
-//         params = {limit: null, offset: null, sortBy: null, filters: null}
-//         params.filters = filters
-//     }
-
-    // if (sortBy.order === "desc") {
-    //     params.page = currentPage
-    //     params.size = 10
-    //     params.sort = sortBy.field + " desc"
-    // } else {
-    //     params.page = currentPage
-    //     params.size = 10
-    //     params.sort = sortBy.field
-    // }
 
     try {
         let searchParams = new URLSearchParams(params)
         let keysForDel = [];
         searchParams.forEach((value, key) => {
-            if (value === "null") {
+            if (value === "null" || value === "") {
                 keysForDel.push(key);
             }
         });

@@ -14,36 +14,52 @@ import AddStarship from "./AddStarship";
 import LoadOnStarship from "./LoadOnStarship";
 import Filters from "./Filters";
 import spacemarineImg from "./spacemarine.png";
+import Order from "./Order.jsx"
 
 const Template = () => {
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
-    const [sortBy, setSortBy] = useState({fields: ["id"], order: "ASC"})
+    const [order, setOrder] = useState("ASC")
+    const [sortBy, setSortBy] = useState("ID")
     const [filters, setFilters] = useState({
         minId: null,
         maxId: null,
+        name: null,
         minX: null,
         maxX: null,
         minY: null,
         maxY: null,
         minHealth: null,
         maxHealth: null,
+        loyal: null,
         minHeight: null,
         maxHeight: null,
+        category: null,
         minCreationDate: null,
-        maxCreationDate: null
+        maxCreationDate: null,
+        chapterName: null,
+        chapterWorld: null,
     })
     const [marines, setMarines] = useState([])
 
     const updateContent = () => {
         console.log("Filters: " + filters)
-        fetchGetMarines(setMarines, setOffset, sortBy, limit, offset, filters, alertWithMessage);
+        fetchGetMarines(setMarines, setOffset, sortBy, order, limit, offset, filters, alertWithMessage);
         console.log("Marines" + marines)
     }
 
     const [hiddenAlert, setHiddenAlert] = useState(true)
     const [message, setAlertMessage] = useState("")
+
+    const changeOrder = () => {
+        if (order === "ASC") {
+            setOrder("DESC")
+        } else {
+            setOrder("ASC")
+        }
+        updateContent()
+    }
 
     const alertWithMessage = (text) => {
         setAlertMessage(text)
@@ -52,13 +68,15 @@ const Template = () => {
 
     useEffect(() => {
         updateContent()
-    }, [limit, offset, sortBy]);
+    }, [limit, offset, sortBy, filters]);
+
+    const sortBys = ["id", "name", "creationDate", "health", "height", "category"]
 
     const onSortClick = (field) => {
-        if (sortBy.fields.includes(field)) {
-            setSortBy({fields: sortBy.fields.filter(function (f) { return f === field}), order: sortBy.order})
-        } else {
-            setSortBy({fields: [field], order: "ASC"})
+        if (sortBys.includes(field)) {
+            setSortBy(field.replace(/([a-z])([A-Z])/, '$1_$2').toUpperCase())
+            updateContent()
+            console.log("Sort by", sortBy)
         }
     }
 
@@ -75,6 +93,7 @@ const Template = () => {
                 <GetCountOfHealthyMarines alertWithMessage={alertWithMessage}/>
                 <AddStarship alertWithMessage={alertWithMessage}/>
                 <LoadOnStarship alertWithMessage={alertWithMessage}/>
+                <Order setUpperOrder={changeOrder} updateContent={updateContent} />
                 <Pagination limit={limit} offset={offset} setOffset={setOffset}/>
             </div>
             <div className="table-container">
