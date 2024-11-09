@@ -300,7 +300,7 @@ class SpaceMarinesRepository {
         }
 
         if (queryParams.minHeight != null) {
-            where += " and y.height <= ${queryParams.minHeight}"
+            where += " and y.height >= ${queryParams.minHeight}"
         }
 
         if (queryParams.maxHeight != null) {

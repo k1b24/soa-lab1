@@ -22,7 +22,6 @@ const Filters = ({setFilters, updateContent}) => {
     const [chapterWorld, setChapterWorld] = useState(null)
 
     const onFilterClick = () => {
-        console.log(name)
         setFilters({
             minId: minId,
             maxId: maxId,
@@ -89,29 +88,29 @@ const Filters = ({setFilters, updateContent}) => {
                 <div>
                     <div>
                         <label htmlFor="minIdArea">minId</label>
-                        <input type="number" id={"minIdArea"} value={minId} onChange={e => setMinId(e.target.value)} placeholder={"minId"}/>
+                        <input type="number" id={"minIdArea"} value={minId} onChange={e => setMinId(e.target.value)} placeholder={"minId"}/><p/>
                         <label htmlFor="maxIdArea">maxId</label>
-                        <input type="number" id={"maxIdArea"} value={maxId} onChange={e => setMaxId(e.target.value)} placeholder={"maxId"}/>
+                        <input type="number" id={"maxIdArea"} value={maxId} onChange={e => setMaxId(e.target.value)} placeholder={"maxId"}/><p/>
                         <label htmlFor="name">name pattern</label>
-                        <input type="text" id={"name"} value={name} onChange={e => setName(e.target.value)} placeholder={"name"}/>
+                        <input type="text" id={"name"} value={name} onChange={e => setName(e.target.value)} placeholder={"name"}/><p/>
                         <label htmlFor="minXArea">minX</label>
-                        <input type="number" id={"minXArea"} value={minX} onChange={e => setMinX(e.target.value)} placeholder={"minX"}/>
+                        <input type="number" id={"minXArea"} value={minX} onChange={e => setMinX(e.target.value)} placeholder={"minX"}/><p/>
                         <label htmlFor="maxXArea">maxX</label>
-                        <input type="number" id={"maxXArea"} value={maxX} onChange={e => setMaxX(e.target.value)} placeholder={"maxX"}/>
+                        <input type="number" id={"maxXArea"} value={maxX} onChange={e => setMaxX(e.target.value)} placeholder={"maxX"}/><p/>
                         <label htmlFor="minIdArea">minY</label>
-                        <input type="number" id={"minYArea"} value={minY} onChange={e => setMinY(e.target.value)} placeholder={"minY"}/>
+                        <input type="number" id={"minYArea"} value={minY} onChange={e => setMinY(e.target.value)} placeholder={"minY"}/><p/>
                         <label htmlFor="maxYArea">maxY</label>
-                        <input type="number" id={"maxYArea"} value={maxY} onChange={e => setMaxY(e.target.value)} placeholder={"maxY"}/>
+                        <input type="number" id={"maxYArea"} value={maxY} onChange={e => setMaxY(e.target.value)} placeholder={"maxY"}/><p/>
                         <label htmlFor="minHealthArea">minHealth</label>
-                        <input type="number" id={"minHealthArea"} value={minHealth} onChange={e => setMinHealth(e.target.value)} placeholder={"minHealth"}/>
+                        <input type="number" id={"minHealthArea"} value={minHealth} onChange={e => setMinHealth(e.target.value)} placeholder={"minHealth"}/><p/>
                         <label htmlFor="maxHealthArea">maxHealth</label>
-                        <input type="number" id={"maxHealthArea"} value={maxHealth} onChange={e => setMaxHealth(e.target.value)} placeholder={"maxHealth"}/>
+                        <input type="number" id={"maxHealthArea"} value={maxHealth} onChange={e => setMaxHealth(e.target.value)} placeholder={"maxHealth"}/><p/>
                         <label htmlFor="minHeightArea">minHeight</label>
-                        <input type="number" id={"minHeightArea"} value={minHeight} onChange={e => setMinHeight(e.target.value)} placeholder={"minHeight"}/>
+                        <input type="number" id={"minHeightArea"} value={minHeight} onChange={e => setMinHeight(e.target.value)} placeholder={"minHeight"}/><p/>
                         <label htmlFor="maxHeightArea">maxHeight</label>
-                        <input type="number" id={"maxHeightArea"} value={maxHeight} onChange={e => setMaxHeight(e.target.value)} placeholder={"maxHeight"}/>
+                        <input type="number" id={"maxHeightArea"} value={maxHeight} onChange={e => setMaxHeight(e.target.value)} placeholder={"maxHeight"}/><p/>
                         <label htmlFor="loyal">loyal</label>
-                        <input type="checkbox" id={"loyal"} value={loyal} onChange={e => setLoyal(e.target.checked)} placeholder={"loyal"}/>
+                        <input type="checkbox" id={"loyal"} value={loyal} onChange={e => setLoyal(e.target.checked)} placeholder={"loyal"}/><p/>
                         <label htmlFor="category">category</label>
                         <select className='select' onChange={(e) => setCategory(e.target.value)} value={category} required>
                             {['DREADNOUGHT', 'INCEPTOR', 'SUPPRESSOR', 'TERMINATOR', 'LIBRARIAN'].map((enumCategory) => {
@@ -121,13 +120,13 @@ const Filters = ({setFilters, updateContent}) => {
                             })}
                         </select>
                         <label htmlFor="minCreationDateArea">minCreationDate</label>
-                        <input type="date" id={"minCreationDateArea"} value={minCreationDate} onChange={e => setMinCreationDate(e.target.value)} placeholder={"minCreationDate"}/>
+                        <input type="date" id={"minCreationDateArea"} value={minCreationDate} onChange={e => setMinCreationDate(e.target.value)} placeholder={"minCreationDate"}/><p/>
                         <label htmlFor="maxCreationDateArea">maxCreationDate</label>
-                        <input type="date" id={"maxCreationDateArea"} value={maxCreationDate} onChange={e => setMaxCreationDate(e.target.value)} placeholder={"maxCreationDate"}/>
+                        <input type="date" id={"maxCreationDateArea"} value={maxCreationDate} onChange={e => setMaxCreationDate(e.target.value)} placeholder={"maxCreationDate"}/><p/>
                         <label htmlFor="chapterName">chapter name</label>
-                        <input type="text" id={"chapterName"} value={chapterName} onChange={e => setChapterName(e.target.value)} placeholder={"chapterName"}/>
+                        <input type="text" id={"chapterName"} value={chapterName} onChange={e => setChapterName(e.target.value)} placeholder={"chapterName"}/><p/>
                         <label htmlFor="chapterWorld">chapter world</label>
-                        <input type="text" id={"chapterWorld"} value={chapterWorld} onChange={e => setChapterWorld(e.target.value)} placeholder={"chapterWorld"}/>
+                        <input type="text" id={"chapterWorld"} value={chapterWorld} onChange={e => setChapterWorld(e.target.value)} placeholder={"chapterWorld"}/><p/>
                     </div>
                     <button className={"btn btn-outline btn-success"} onClick={onFilterClick}>Filter</button>
                     <button className="btn btn-outline btn-warning" onClick={onResetClick}>Reset</button>

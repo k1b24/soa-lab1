@@ -1,5 +1,4 @@
 function TableTemplate(props) {
-    console.log(props.content)
     return (
         <tbody id="page1">
         {

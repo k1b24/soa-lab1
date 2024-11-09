@@ -13,6 +13,7 @@ import GetCountOfHealthyMarines from "./GetCountOfHealthyMarines";
 import AddStarship from "./AddStarship";
 import LoadOnStarship from "./LoadOnStarship";
 import Filters from "./Filters";
+import SortBy from "./SortBy";
 import spacemarineImg from "./spacemarine.png";
 import Order from "./Order.jsx"
 
@@ -21,7 +22,7 @@ const Template = () => {
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
     const [order, setOrder] = useState("ASC")
-    const [sortBy, setSortBy] = useState("ID")
+    const [sortBy, setSortBy] = useState(["ID"])
     const [filters, setFilters] = useState({
         minId: null,
         maxId: null,
@@ -94,6 +95,7 @@ const Template = () => {
                 <AddStarship alertWithMessage={alertWithMessage}/>
                 <LoadOnStarship alertWithMessage={alertWithMessage}/>
                 <Order setUpperOrder={changeOrder} updateContent={updateContent} />
+                <SortBy setSortBy={setSortBy} updateContent={updateContent} />
                 <Pagination limit={limit} offset={offset} setOffset={setOffset}/>
             </div>
             <div className="table-container">

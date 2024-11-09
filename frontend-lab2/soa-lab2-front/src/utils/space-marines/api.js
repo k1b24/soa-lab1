@@ -4,8 +4,6 @@ const BASE_SPACE_MARINE_SERVICE_URL = "https://localhost:22001/space-marines-ser
 
 export const fetchGetMarines = async (setMarines, setOffset, sortBy, order, limit, offset, filters, alertWithMessage) => {
     const url = new URL(BASE_SPACE_MARINE_SERVICE_URL + "/space-marines");
-    console.log(filters.minId)
-    console.log(order)
     let params = {
         limit: limit,
         offset: offset,
@@ -27,11 +25,11 @@ export const fetchGetMarines = async (setMarines, setOffset, sortBy, order, limi
         maxCreationDate: filters.maxCreationDate,
         chapterName: filters.chapterName,
         chapterWorld: filters.chapterWorld,
-        sortBy: sortBy,
     }
 
     try {
         let searchParams = new URLSearchParams(params)
+        sortBy.forEach(value => searchParams.append('sortBy', value))
         let keysForDel = [];
         searchParams.forEach((value, key) => {
             if (value === "null" || value === "") {
