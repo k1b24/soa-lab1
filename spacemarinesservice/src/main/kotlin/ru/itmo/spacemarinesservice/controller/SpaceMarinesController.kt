@@ -17,17 +17,14 @@ import ru.itmo.spacemarinesservice.model.ResponseEntity.ErrorResponseEntity
 import ru.itmo.spacemarinesservice.model.ResponseEntity.SpaceMarinesResponseEntity
 import ru.itmo.spacemarinesservice.service.SpaceMarinesService
 import ru.itmo.spacemarinesservice.util.buildErrorResponseEntityByException
-import java.io.InputStream
 import java.time.LocalDate
 
 
-@RestController("/space-marines")
+@RestController
+@RequestMapping("/space-marines")
 class SpaceMarinesController(
     private val spaceMarinesService: SpaceMarinesService
 ) {
-
-    private var objectMapper = jacksonObjectMapper()
-
     private var validator = Validation.buildDefaultValidatorFactory().validator
 
     @PostMapping
@@ -190,22 +187,8 @@ class SpaceMarinesController(
     @PutMapping("/{space-marine-id}")
     fun putSpaceMarine(
         @PathVariable("space-marine-id") spaceMarineId: Long,
-        spaceMarinEntityInputStream: InputStream,
+        postSpaceMarineRequest: PostSpaceMarineRequest,
     ): ResponseEntity<Any> {
-        val postSpaceMarineRequest: PostSpaceMarineRequest
-
-        try {
-            postSpaceMarineRequest = objectMapper.readValue(spaceMarinEntityInputStream.readAllBytes(), PostSpaceMarineRequest::class.java)
-        } catch (e: MismatchedInputException) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                    ErrorResponseEntity(
-                        code = HttpStatus.BAD_REQUEST.value(),
-                        message = "missing: ${e.path.map { it.fieldName }}",
-                    )
-                )
-        }
-
         val constraints = validator.validate(postSpaceMarineRequest)
             .plus(validator.validate(postSpaceMarineRequest.chapter))
             .plus(validator.validate(postSpaceMarineRequest.coordinates))
@@ -220,7 +203,7 @@ class SpaceMarinesController(
         }
 
         try {
-            val spaceMarine = spaceMarinesService.updateSpaceMarine(spaceMarineId, postSpaceMarineRequest)
+            spaceMarinesService.updateSpaceMarine(spaceMarineId, postSpaceMarineRequest)
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
         } catch (e: Exception) {
             return buildErrorResponseEntityByException(e)

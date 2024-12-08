@@ -3,16 +3,14 @@ package ru.itmo.spacemarinesservice.controller
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import ru.itmo.spacemarinesservice.model.ResponseEntity.ErrorResponseEntity
 import ru.itmo.spacemarinesservice.service.StarshipsService
 import ru.itmo.spacemarinesservice.util.buildErrorResponseEntityByException
 import java.util.UUID
 
-@RestController("/starships")
+@RestController
+@RequestMapping("/starships")
 class StarshipsController(
     @Autowired private val starshipsService: StarshipsService
 ) {
