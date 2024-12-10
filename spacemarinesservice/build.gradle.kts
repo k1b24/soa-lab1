@@ -1,7 +1,7 @@
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
-	id("org.springframework.boot") version "3.4.0"
+	id("org.springframework.boot") version "3.2.0"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("plugin.jpa") version "1.9.25"
 }
@@ -34,11 +34,14 @@ noArg {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.hibernate:hibernate-validator-annotation-processor:7.0.4.Final")
 	implementation("jakarta.validation:jakarta.validation-api:3.1.0")
 	implementation("org.hibernate.validator:hibernate-validator:7.0.4.Final")
+	implementation("org.springframework.cloud:spring-cloud-starter-consul-all:4.1.0")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 
 	implementation("org.hibernate:hibernate-core:6.0.2.Final")
