@@ -16,7 +16,7 @@ class StarshipsRepository {
     fun saveStarship(starship: Starship) {
         val session: Session = databaseSessionManager.getSession()
         try {
-            session.transaction
+            session.beginTransaction()
 
             session.persist(starship)
 
