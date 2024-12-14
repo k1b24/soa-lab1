@@ -3,6 +3,7 @@ package ru.itmo.spacemarinesservice.controller
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import jakarta.validation.Validation
+import jakarta.websocket.server.PathParam
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -217,7 +218,7 @@ class SpaceMarinesController(
     @DeleteMapping("/{space-marine-id}")
     @CrossOrigin("*")
     fun deleteSpaceMarineById(
-        @RequestParam("space-marine-id") spaceMarineId: Long,
+        @PathVariable("space-marine-id") spaceMarineId: Long,
     ): ResponseEntity<Any> {
         val deletedAmount: Int
         try {
