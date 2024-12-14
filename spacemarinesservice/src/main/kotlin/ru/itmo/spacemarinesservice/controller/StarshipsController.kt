@@ -16,6 +16,7 @@ class StarshipsController(
 ) {
 
     @PostMapping("/create/{starship-id}/{starship-name}")
+    @CrossOrigin("*")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun saveStarship(
         @PathVariable("starship-id") starshipId: UUID,
@@ -40,6 +41,7 @@ class StarshipsController(
     }
 
     @PostMapping("/{starship-id}/load/{space-marine-id}")
+    @CrossOrigin("*")
     fun loadSpaceMarine(
         @PathVariable("starship-id") starshipId: String,
         @PathVariable("space-marine-id") spaceMarineId: Long,

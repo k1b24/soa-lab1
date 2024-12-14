@@ -28,6 +28,7 @@ class SpaceMarinesController(
     private var validator = Validation.buildDefaultValidatorFactory().validator
 
     @PostMapping
+    @CrossOrigin("*")
     fun saveSpaceMarine(postSpaceMarineRequest: PostSpaceMarineRequest): ResponseEntity<Any> {
         val constraints = validator.validate(postSpaceMarineRequest)
             .plus(validator.validate(postSpaceMarineRequest.chapter))
@@ -51,6 +52,7 @@ class SpaceMarinesController(
     }
 
     @GetMapping
+    @CrossOrigin("*")
     fun getSpaceMarines(
         @RequestParam("limit") limit: Int?,
         @RequestParam("offset") offset: Int?,
@@ -161,6 +163,7 @@ class SpaceMarinesController(
     }
 
     @GetMapping("/{space-marine-id}")
+    @CrossOrigin("*")
     fun getSpaceMarine(
         @PathVariable("space-marine-id") spaceMarineId: Long,
     ): ResponseEntity<Any> {
@@ -185,6 +188,7 @@ class SpaceMarinesController(
     }
 
     @PutMapping("/{space-marine-id}")
+    @CrossOrigin("*")
     fun putSpaceMarine(
         @PathVariable("space-marine-id") spaceMarineId: Long,
         postSpaceMarineRequest: PostSpaceMarineRequest,
@@ -211,6 +215,7 @@ class SpaceMarinesController(
     }
 
     @DeleteMapping("/{space-marine-id}")
+    @CrossOrigin("*")
     fun deleteSpaceMarineById(
         @RequestParam("space-marine-id") spaceMarineId: Long,
     ): ResponseEntity<Any> {
@@ -234,6 +239,7 @@ class SpaceMarinesController(
     }
 
     @DeleteMapping("/categories/{category}")
+    @CrossOrigin("*")
     fun deleteSpaceMarineByCategory(
         @PathVariable("category") category: AstartesCategory,
     ): ResponseEntity<Any> {
@@ -257,6 +263,7 @@ class SpaceMarinesController(
     }
 
     @GetMapping("loyalists")
+    @CrossOrigin("*")
     fun getAnyLoyalSpaceMarine(): ResponseEntity<Any> {
         val spaceMarine: SpaceMarine?
         try {
@@ -279,6 +286,7 @@ class SpaceMarinesController(
     }
 
     @GetMapping("amount")
+    @CrossOrigin("*")
     fun getHealthySpaceMarinesAmount(
         @RequestParam("minHealth") minHealth: Float?,
     ): ResponseEntity<Any> {
