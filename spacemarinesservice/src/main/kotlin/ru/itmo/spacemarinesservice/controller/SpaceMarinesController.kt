@@ -29,7 +29,7 @@ class SpaceMarinesController(
 
     @PostMapping
     @CrossOrigin("*")
-    fun saveSpaceMarine(postSpaceMarineRequest: PostSpaceMarineRequest): ResponseEntity<Any> {
+    fun saveSpaceMarine(@RequestBody postSpaceMarineRequest: PostSpaceMarineRequest): ResponseEntity<Any> {
         val constraints = validator.validate(postSpaceMarineRequest)
             .plus(validator.validate(postSpaceMarineRequest.chapter))
             .plus(validator.validate(postSpaceMarineRequest.coordinates))
@@ -191,7 +191,7 @@ class SpaceMarinesController(
     @CrossOrigin("*")
     fun putSpaceMarine(
         @PathVariable("space-marine-id") spaceMarineId: Long,
-        postSpaceMarineRequest: PostSpaceMarineRequest,
+        @RequestBody postSpaceMarineRequest: PostSpaceMarineRequest,
     ): ResponseEntity<Any> {
         val constraints = validator.validate(postSpaceMarineRequest)
             .plus(validator.validate(postSpaceMarineRequest.chapter))
