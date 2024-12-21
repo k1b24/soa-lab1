@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.7.20'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+allOpen {
+    annotation('jakarta.ws.rs.Path')
+    annotation('jakarta.enterprise.context.ApplicationScoped')
+}
+
+dependencies {
+    compileOnly('jakarta.enterprise:jakarta.enterprise.cdi-api:3.0.0')
+    compileOnly('jakarta.ejb:jakarta.ejb-api:4.0.0')
+    compileOnly('jakarta.ws.rs:jakarta.ws.rs-api:3.0.0')
+    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'org.jboss.ejb3:jboss-ejb3-ext-api:2.4.0.Final'
+}
+repositories {
+    mavenCentral()
+}

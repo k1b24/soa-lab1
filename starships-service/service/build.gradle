@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.7.20'
+    id 'war'
+}
+
+group 'ru.itmo'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.9.1'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+[compileKotlin, compileTestKotlin].forEach {
+    it.kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+allOpen {
+    annotation('jakarta.ws.rs.Path')
+    annotation('jakarta.enterprise.context.ApplicationScoped')
+}
+
+
+dependencies {
+    implementation project(':ejbs')
+    compileOnly('jakarta.enterprise:jakarta.enterprise.cdi-api:3.0.0')
+    compileOnly('jakarta.ejb:jakarta.ejb-api:4.0.0')
+    compileOnly('jakarta.ws.rs:jakarta.ws.rs-api:3.0.0')
+    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('deploy') {
+    dependsOn('war')
+    doLast {
+        exec {
+            executable("java")
+            args("-jar", "-Djava.net.preferIPv4Stack=true", "-Djavax.net.ssl.keyStore=../keystore.jks", "-Djavax.net.ssl.keyStorePassword=123456", "-Dpayaramicro.sslPort=1282", "payara-micro.jar", "--deploy", "${buildDir}/libs/starships-service.war", "--port", "8081", "--sslCert", "soa-lab-keystore", "--add-libs", "")
+            // java -jar -Xmx512m -Xms256m -Djava.net.preferIPv4Stack=true -Djavax.net.ssl.keyStore=keystore.jks -Djavax.net.ssl.keyStorePassword=123456 -Djavax.net.ssl.trustStore=truststore -Djavax.net.ssl.trustStorePassword=123456 -Dpayaramicro.sslPort=22002 payara-micro.jar --deploy starships-service.war --sslCert soa-lab-keystore --port 46576 --noHazelcast
+        }
+    }
+}

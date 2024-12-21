@@ -24,7 +24,7 @@ class StarshipsController {
         @PathParam("starship-id") starshipId: UUID,
         @PathParam("starship-name") starshipName: String,
     ): Response = starshipsClient.saveStarship(starshipId, starshipName).let {
-        Response.status(it.status).header("ABOBA", "abiba").build()
+        Response.status(it.status).build()
     }
 
     @POST
