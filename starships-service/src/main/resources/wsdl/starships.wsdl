@@ -1,0 +1,76 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://controller.starshipsservice.itmo.ru/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="StarshipsService" targetNamespace="http://controller.starshipsservice.itmo.ru/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://controller.starshipsservice.itmo.ru/" elementFormDefault="unqualified" targetNamespace="http://controller.starshipsservice.itmo.ru/" version="1.0">
+            <xs:element name="loadSpaceMarine" type="tns:loadSpaceMarine"/>
+            <xs:element name="loadSpaceMarineResponse" type="tns:loadSpaceMarineResponse"/>
+            <xs:element name="saveStarship" type="tns:saveStarship"/>
+            <xs:element name="saveStarshipResponse" type="tns:saveStarshipResponse"/>
+            <xs:complexType name="saveStarship">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                    <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="saveStarshipResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="loadSpaceMarine">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                    <xs:element name="arg1" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="loadSpaceMarineResponse">
+                <xs:sequence/>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="loadSpaceMarineResponse">
+        <wsdl:part element="tns:loadSpaceMarineResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="loadSpaceMarine">
+        <wsdl:part element="tns:loadSpaceMarine" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveStarshipResponse">
+        <wsdl:part element="tns:saveStarshipResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveStarship">
+        <wsdl:part element="tns:saveStarship" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="StarshipsService">
+        <wsdl:operation name="saveStarship">
+            <wsdl:input message="tns:saveStarship" name="saveStarship"> </wsdl:input>
+            <wsdl:output message="tns:saveStarshipResponse" name="saveStarshipResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="loadSpaceMarine">
+            <wsdl:input message="tns:loadSpaceMarine" name="loadSpaceMarine"> </wsdl:input>
+            <wsdl:output message="tns:loadSpaceMarineResponse" name="loadSpaceMarineResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="StarshipsServiceSoapBinding" type="tns:StarshipsService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="saveStarship">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="saveStarship">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="saveStarshipResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="loadSpaceMarine">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="loadSpaceMarine">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="loadSpaceMarineResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="StarshipsService">
+        <wsdl:port binding="tns:StarshipsServiceSoapBinding" name="StarshipsServicePort">
+            <soap:address location="http://localhost:8080/services/starships"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

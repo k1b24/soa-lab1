@@ -1,0 +1,13 @@
+spring:
+  ws:
+    wsdl:
+      location: /ws/starships?wsdl
+
+server:
+  port: 8079
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
